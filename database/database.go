@@ -12,7 +12,6 @@ var Database = func(db *gorm.DB) {
 	errorVariables := godotenv.Load()
 	if errorVariables != nil {
 		panic(errorVariables)
-		return
 	}
 
 	dsname := os.Getenv("db_user")+":"os.Getenv("db_password")+"@tcp("+os.Getenv("db_server")
