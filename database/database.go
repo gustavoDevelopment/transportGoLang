@@ -5,23 +5,40 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-var Database = func(db *gorm.DB) {
-	errorVariables := godotenv.Load()
-	if errorVariables != nil {
-		panic(errorVariables)
+var Database = func() *gorm.DB {
+	if err := godotenv.Load(); err != nil {
+		panic(fmt.Sprintf("Error al cargar el archivo .env: %v", err))
 	}
 
-	dsname := os.Getenv("db_user")+":"os.Getenv("db_password")+"@tcp("+os.Getenv("db_server")
-	+":"+os.Getenv("db_port")+")/"+os.Getenv("db_name")+"?charset+utf8mb4&parseTime=True&Loc=Local"
+	dsname := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		os.Getenv("db_user"),
+		os.Getenv("db_password"),
+		os.Getenv("db_server"),
+		os.Getenv("db_port"),
+		os.Getenv("db_name"),
+	)
 
-	if db, err := gorm.Open(mysql.Open(dsname), &gorm.Config{}); err != nil {
-		fmt.Println("Error de Conexion a la BD")
-		panic(err)
-	} else {
-		fmt.Println("Conexion a la BD")
-		return db
+	db, err := gorm.Open(mysql.Open(dsname), &gorm.Config{})
+	if err != nil {
+		panic(fmt.Sprintf("Error de conexión a la BD: %v", err))
 	}
+
+	//err = db.AutoMigrate(&catalog.EPS{})
+	//err = db.AutoMigrate(&catalog.Department{})
+	//err = db.AutoMigrate(&catalog.DocumentType{})
+	//err = db.AutoMigrate(&catalog.City{})
+	//err = db.AutoMigrate(&catalog.InsuranceCompany{})
+	//err = db.AutoMigrate(&catalog.TruckBrand{})
+	//err = db.AutoMigrate(&model.Person{})
+	//err = db.AutoMigrate(&model.Truck{})
+	//if err != nil {
+	//		log.Fatalf("Error en la migración: %v", err)
+	//	}
+
+	fmt.Println("Conexión a la BD exitosa")
+	return db
 }()

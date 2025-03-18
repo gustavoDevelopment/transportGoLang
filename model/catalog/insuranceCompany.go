@@ -5,3 +5,5 @@ type InsuranceCompany struct {
 	Code string `json:"code"` // Código de la aseguradora
 	Name string `json:"name"` // Nombre de la aseguradora
 }
+
+type InsuranceCompanys []InsuranceCompany

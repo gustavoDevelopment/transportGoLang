@@ -3,6 +3,7 @@ module restMux
 go 1.24.1
 
 require (
+	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/howeyc/fsnotify v0.9.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
@@ -15,5 +16,6 @@ require (
 	github.com/rs/cors v1.11.1 // indirect
 	golang.org/x/sys v0.29.0 // indirect
 	golang.org/x/text v0.23.0 // indirect
+	gorm.io/driver/mysql v1.5.7 // indirect
 	gorm.io/gorm v1.25.12 // indirect
 )

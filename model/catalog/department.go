@@ -5,3 +5,5 @@ type Department struct {
 	Code string `json:"code"` // Código del departamento
 	Name string `json:"name"` // Nombre del departamento
 }
+
+type Departments []Department

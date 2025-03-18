@@ -5,3 +5,5 @@ type TruckBrand struct {
 	Code string `json:"code"`
 	Name string `json:"name"`
 }
+
+type TruckBrands []TruckBrand
