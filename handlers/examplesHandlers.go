@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"restMux/dto"
+	"restMux/model"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -53,13 +54,13 @@ func DoOnEjemploPostWithBody(rs http.ResponseWriter, rq *http.Request) {
 		return
 	}
 
-	var user dto.User
+	var user model.Person
 	err := json.NewDecoder(rq.Body).Decode(&user)
 	if err != nil {
 		http.Error(rs, "Error al procesar el body", http.StatusInternalServerError)
 		return
 	}
-	response := dto.GenericResponse{Rc: 0, Mensaje: "process Ok", Fecha: currentTime, Data: user.FirstName + " " + user.SecondName}
+	response := dto.GenericResponse{Rc: 0, Mensaje: "process Ok", Fecha: currentTime, Data: user}
 	output, err := json.Marshal(response)
 	if err != nil {
 		http.Error(rs, "Error al procesar la respuesta", http.StatusInternalServerError)
