@@ -3,6 +3,7 @@
 import (
 	"fmt"
 	"os"
+	"restMux/logger"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
@@ -39,6 +40,6 @@ var Database = func() *gorm.DB {
 	//		log.Fatalf("Error en la migración: %v", err)
 	//	}
 
-	fmt.Println("Conexión a la BD exitosa")
+	logger.Log.Info("Conexión a la BD exitosa")
 	return db
 }()

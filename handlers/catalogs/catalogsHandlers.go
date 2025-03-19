@@ -6,11 +6,13 @@ import (
 	"net/http"
 	"restMux/database"
 	"restMux/dto"
+	"restMux/logger"
 	"restMux/model/catalog"
 	"time"
 )
 
 func HandleCatalogRequest(rs http.ResponseWriter, rq *http.Request) {
+	logger.Log.Info("HandleCatalogRequest")
 	rs.Header().Set("Content-Type", "application/json")
 	queryType := rq.URL.Query().Get("type")
 	if queryType == "" {
@@ -24,7 +26,9 @@ func HandleCatalogRequest(rs http.ResponseWriter, rq *http.Request) {
 
 	switch queryType {
 	case "eps":
+
 		doOnGetEPS(rs, rq)
+
 	case "documentType":
 		doOnGetDocumentType(rs, rq)
 	case "deparment":
@@ -46,6 +50,7 @@ func HandleCatalogRequest(rs http.ResponseWriter, rq *http.Request) {
 }
 
 func doOnGetEPS(rs http.ResponseWriter, rq *http.Request) {
+	logger.Log.Info("doOnGetEPS")
 	rs.Header().Set("Content-Type", "application/json")
 	currentTime := time.Now().Format(time.RFC3339)
 	data := catalog.EPSs{}
@@ -63,6 +68,7 @@ func doOnGetEPS(rs http.ResponseWriter, rq *http.Request) {
 }
 
 func doOnGetDocumentType(rs http.ResponseWriter, rq *http.Request) {
+	logger.Log.Info("doOnGetDocumentType")
 	rs.Header().Set("Content-Type", "application/json")
 	currentTime := time.Now().Format(time.RFC3339)
 	data := catalog.DocumentTypes{}
@@ -80,6 +86,7 @@ func doOnGetDocumentType(rs http.ResponseWriter, rq *http.Request) {
 }
 
 func doOnGetDepartments(rs http.ResponseWriter, rq *http.Request) {
+	logger.Log.Info("doOnGetDepartments")
 	rs.Header().Set("Content-Type", "application/json")
 	currentTime := time.Now().Format(time.RFC3339)
 
@@ -99,6 +106,7 @@ func doOnGetDepartments(rs http.ResponseWriter, rq *http.Request) {
 }
 
 func doOnGetCities(rs http.ResponseWriter, rq *http.Request) {
+	logger.Log.Info("doOnGetCities")
 	rs.Header().Set("Content-Type", "application/json")
 	currentTime := time.Now().Format(time.RFC3339)
 
@@ -118,6 +126,7 @@ func doOnGetCities(rs http.ResponseWriter, rq *http.Request) {
 }
 
 func doOnGetInsurers(rs http.ResponseWriter, rq *http.Request) {
+	logger.Log.Info("doOnGetInsurers")
 	rs.Header().Set("Content-Type", "application/json")
 	currentTime := time.Now().Format(time.RFC3339)
 
@@ -136,6 +145,7 @@ func doOnGetInsurers(rs http.ResponseWriter, rq *http.Request) {
 }
 
 func doOnGetTruckBrands(rs http.ResponseWriter, rq *http.Request) {
+	logger.Log.Info("doOnGetTruckBrands")
 	rs.Header().Set("Content-Type", "application/json")
 	currentTime := time.Now().Format(time.RFC3339)
 

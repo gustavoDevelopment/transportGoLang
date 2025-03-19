@@ -3,6 +3,7 @@
 import (
 	"log"
 	"net/http"
+	"restMux/logger"
 	"restMux/routes"
 
 	"github.com/gorilla/mux"
@@ -13,6 +14,6 @@ func main() {
 	mux := mux.NewRouter()
 	routes.SetupRoutes(mux)
 	handler := cors.AllowAll().Handler(mux)
-	log.Println("Servidor corriendo en el puerto 0426")
+	logger.Log.Info("Servidor corriendo en el puerto 0426")
 	log.Fatal(http.ListenAndServe(":0426", handler))
 }

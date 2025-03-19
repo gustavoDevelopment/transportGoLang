@@ -14,6 +14,8 @@ require (
 	github.com/pilu/config v0.0.0-20131214182432-3eb99e6c0b9a // indirect
 	github.com/pilu/fresh v0.0.0-20240621171608-8d1fef547a99 // indirect
 	github.com/rs/cors v1.11.1 // indirect
+	go.uber.org/multierr v1.11.0 // indirect
+	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/sys v0.29.0 // indirect
 	golang.org/x/text v0.23.0 // indirect
 	gorm.io/driver/mysql v1.5.7 // indirect
