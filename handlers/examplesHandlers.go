@@ -4,16 +4,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"restMux/constanst"
 	"restMux/dto"
 	"restMux/model"
-	"time"
 
 	"github.com/gorilla/mux"
 )
 
 func DoOnEjemploGet(rs http.ResponseWriter, rq *http.Request) {
-	currentTime := time.Now().Format(time.RFC3339)
-	response := dto.GenericResponse{Rc: 0, Mensaje: "process Ok", Fecha: currentTime}
+	response := dto.NewResponse(constanst.PROCESS_OK, constanst.PROCESS_OK_MSG, nil)
 
 	output, err := json.Marshal(response)
 	if err != nil {
@@ -26,9 +25,8 @@ func DoOnEjemploGet(rs http.ResponseWriter, rq *http.Request) {
 }
 
 func DoOnEjemploGetWithParameter(rs http.ResponseWriter, rq *http.Request) {
-	currentTime := time.Now().Format(time.RFC3339)
 	vars := mux.Vars(rq)
-	response := dto.GenericResponse{Rc: 0, Mensaje: "process Ok", Fecha: currentTime, Data: vars["id"]}
+	response := dto.NewResponse(constanst.PROCESS_OK, constanst.PROCESS_OK_MSG, vars["id"])
 	output, err := json.Marshal(response)
 	if err != nil {
 		http.Error(rs, "Error al procesar la respuesta", http.StatusInternalServerError)
@@ -44,11 +42,10 @@ func DoOnEjemploPost(rs http.ResponseWriter, rq *http.Request) {
 }
 
 func DoOnEjemploPostWithBody(rs http.ResponseWriter, rq *http.Request) {
-	currentTime := time.Now().Format(time.RFC3339)
 	rs.Header().Set("Content-Type", "application/json")
 	auth := rq.Header.Get("Authorization")
 	if auth == "" {
-		output, _ := json.Marshal(dto.GenericResponse{Rc: -2000, Mensaje: "not Authorization request", Fecha: currentTime})
+		output, _ := json.Marshal(dto.NewResponse(constanst.PROCESS_ERROR_AUTH, constanst.PROCESS_ERROR_AUTH_MSG, nil))
 		rs.WriteHeader(http.StatusForbidden)
 		fmt.Fprintln(rs, string(output))
 		return
@@ -60,7 +57,7 @@ func DoOnEjemploPostWithBody(rs http.ResponseWriter, rq *http.Request) {
 		http.Error(rs, "Error al procesar el body", http.StatusInternalServerError)
 		return
 	}
-	response := dto.GenericResponse{Rc: 0, Mensaje: "process Ok", Fecha: currentTime, Data: user}
+	response := dto.NewResponse(constanst.PROCESS_OK, constanst.PROCESS_OK_MSG, user)
 	output, err := json.Marshal(response)
 	if err != nil {
 		http.Error(rs, "Error al procesar la respuesta", http.StatusInternalServerError)
